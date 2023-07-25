@@ -1,0 +1,28 @@
+name: Generate Coverage File
+
+on: [push] # You can customize the events that trigger this workflow
+
+jobs:
+  generate_coverage:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Create /tmp/workspace directory
+      run: mkdir -p /tmp/workspace
+
+    - name: Generate Coverage.xml
+      run: echo "<dummy_coverage_data>Some content here</dummy_coverage_data>" > /tmp/workspace/Coverage.xml
+
+    - name: Display file contents
+      run: cat /tmp/workspace/Coverage.xml
+    
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        env_vars: OS,PYTHON
+        fail_ci_if_error: true
+        files: /tmp/workspace/CoverageXML.xml
+        flags: unittests
+        name: codecov-umbrella
+        verbose: true   
