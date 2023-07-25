@@ -1,6 +1,8 @@
 name: Generate Coverage File
 
-on: [push] # You can customize the events that trigger this workflow
+on: 
+    push:
+    pull_request: # You can customize the events that trigger this workflow
 
 jobs:
   generate_coverage:
